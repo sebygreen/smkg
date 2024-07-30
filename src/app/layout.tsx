@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 
 import localFont from "next/font/local";
 import Header from "@/components/client/Header";
+import Script from "next/script";
 
 const satoshi = localFont({
     src: [
@@ -36,6 +37,7 @@ export default function RootLayout({
                 <Header />
                 {children}
             </body>
+            <Script defer data-domain="smkg.me" src={"https://plausible.smkg.me/js/script.js"} />
         </html>
     );
 }
