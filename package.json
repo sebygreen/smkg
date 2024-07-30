@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@icons-pack/react-simple-icons": "^9.6.0",
         "@phosphor-icons/react": "^2.1.7",
         "@react-three/fiber": "^8.16.8",
         "framer-motion": "^11.3.19",
@@ -19,10 +20,10 @@
         "three": "^0.167.0"
     },
     "devDependencies": {
-        "@types/three": "^0.167.1",
         "@types/node": "^22",
         "@types/react": "^18",
         "@types/react-dom": "^18",
+        "@types/three": "^0.167.1",
         "eslint": "^8",
         "eslint-config-next": "14.2.5",
         "typescript": "^5"
