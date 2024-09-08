@@ -1,12 +1,12 @@
 "use client";
 
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { Project } from "@/types/design";
+import { BrandingSchema, IconSchema, InterfaceSchema } from "@/utilities/types";
 
 export const ShowcaseContext = createContext<any>(null);
 
 export default function ShowcaseProvider({ children }: { children: ReactNode }) {
-    const [showcase, setShowcase] = useState<Project | null>(null);
+    const [showcase, setShowcase] = useState<IconSchema | InterfaceSchema | BrandingSchema | null>(null);
 
     useEffect(() => {
         if (showcase) {

@@ -19,31 +19,39 @@ export default function Credits() {
     }
 
     const motions = {
-        parent: {
+        container: {
             hidden: {
                 opacity: 0,
                 transition: {
                     duration: 0.3,
+                    ease: "linear",
+                    when: "afterChildren"
                 },
             },
             shown: {
                 opacity: 1,
                 transition: {
                     duration: 0.3,
+                    ease: "linear",
+                    when: "beforeChildren"
                 },
             },
         },
-        child: {
+        modal: {
             hidden: {
+                opacity: 0,
                 scale: 0.95,
                 transition: {
                     duration: 0.3,
+                    ease: "easeIn",
                 },
             },
             shown: {
+                opacity: 1,
                 scale: 1,
                 transition: {
                     duration: 0.3,
+                    ease: "backOut",
                 },
             },
         },
@@ -56,25 +64,29 @@ export default function Credits() {
                     id="credits"
                     className={styles.credits}
                     onClick={handleClose}
-                    variants={motions.parent}
+                    variants={motions.container}
                     initial="hidden"
                     animate="shown"
                     exit="hidden"
                 >
-                    <motion.div className={styles.wrapper} variants={motions.child} onClick={handleBubble}>
+                    <motion.div className={styles.wrapper} variants={motions.modal} onClick={handleBubble}>
                         <h2>Credits</h2>
                         <p>&copy; 2024 Sebastien Green</p>
                         <div className={styles.links}>
-                            <p>NextJS</p>
-                            <p>PocketBase</p>
-                            <p>Framer Motion</p>
-                            <p>Three.js</p>
-                            <p>React Three Fiber</p>
-                            <p>Phosphor Icons</p>
-                            <p>Stripe</p>
+                            <a href="https://nextjs.org">NextJS</a>
+                            <a href="https://github.com/pocketbase/pocketbase">PocketBase</a>
+                            <a href="https://www.framer.com/motion/">Framer Motion</a>
+                            <a href="https://github.com/mrdoob/three.js/">Three.js</a>
+                            <a href="https://github.com/pmndrs/react-three-fiber">React Three Fiber</a>
+                            <a href="https://github.com/phosphor-icons/homepage">Phosphor Icons</a>
+                            <a href="https://github.com/simple-icons/simple-icons">Simple Icons</a>
+                            <a href="https://github.com/icons-pack/react-simple-icons">React Simple Icons</a>
+                            <a href="https://stripe.com/en-fr">Stripe</a>
+                            <a href="https://www.youtube.com/watch?v=LW9d2cqIHb4">Yuri Artiukh</a>
+                            <a href="https://github.com/uuidjs/uuid">uuid</a>
                         </div>
                         <p>This website uses no cookies or local storage of any kind.</p>
-                        <Button type="anchor" icon={<Code />} text="Source" />
+                        <Button type="anchor" icon={<Code />} text="Source" href="https://github.com/sebygreen/smkg" />
                     </motion.div>
                 </motion.section>
             )}
@@ -84,5 +96,7 @@ export default function Credits() {
 
 export function ToggleCredits() {
     const { setCredits } = useContext(CreditsContext);
-    return <Button type="button" text="Credits" icon={<HandsPraying weight="fill" />} click={() => setCredits(true)} />;
+    return (
+        <Button type="button" text="Credits" icon={<HandsPraying weight="fill" />} onClick={() => setCredits(true)} />
+    );
 }

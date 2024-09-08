@@ -1,56 +1,62 @@
-import { Project } from "@/types/web";
+"use client";
+
 import { useContext } from "react";
-import { WebProjectsContext } from "@/context/WebProjects";
-import { filenameToSize } from "@/utilities/helpers";
 import { motion } from "framer-motion";
 import styles from "@/style/WebProject.module.css";
-import { Archive, ArrowSquareOut, CalendarBlank, Tag, TrafficCone } from "@phosphor-icons/react";
-import Image from "next/image";
+import { ArrowSquareOut, TrafficCone } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/Button";
+import { StaggerContext } from "@/context/Stagger";
+import { SiteSchema } from "@/utilities/types";
+import Photo from "@/components/client/Photo";
+import { Eye, Package } from "@phosphor-icons/react";
+import { ViewerContext } from "@/context/Viewer";
 
-export default function WebProject({ data, index }: { data: Project; index: number }) {
-    const { shown, setShown } = useContext(WebProjectsContext);
-
+export default function WebProject({ data, index }: { data: SiteSchema; index: number }) {
+    const { shown, setShown } = useContext(StaggerContext);
+    const { setProject } = useContext(ViewerContext);
     const motions = {
-        start: {
-            scale: 0.95,
-            opacity: 0,
-        },
-        enter: {
-            scale: 1,
-            opacity: 1,
-            transition: {
-                delay: (index - shown) * 0.1,
-                duration: 0.4,
-                ease: [0.83, 0, 0.17, 1],
+        project: {
+            hidden: {
+                scale: 0.9,
+                opacity: 0,
+            },
+            shown: {
+                scale: 1,
+                opacity: 1,
+                transition: {
+                    delay: (index - shown) * 0.05,
+                    duration: 0.3,
+                    ease: "backOut",
+                },
             },
         },
     };
 
-    let screenshot = {
-        url: `${process.env.NEXT_PUBLIC_DB_FILES}/${data.collectionId}/${data.id}/${data.screenshot}`,
-        ...filenameToSize(data.screenshot),
-    };
-
     return (
         <motion.article
-            className={styles.project}
-            variants={motions}
-            initial="start"
-            whileInView="enter"
+            className={styles.container}
+            variants={motions.project}
+            initial="hidden"
+            whileInView="shown"
             onAnimationComplete={() => {
-                setShown((prev: number) => prev + 1);
+                setShown((previous: number) => previous + 1);
             }}
             viewport={{
                 once: true,
-                amount: 0.3,
+                amount: 0.5,
             }}
         >
             <div className={styles.thumbnail}>
+                <Photo
+                    url={data.preview.url}
+                    alt="Screenshot of the website."
+                    width={data.preview.width}
+                    height={data.preview.height}
+                />
                 {data.archived && (
                     <div className={styles.status}>
                         <p>Archived</p>
-                        <Archive weight="fill" />
+                        <Package weight="fill" />
                     </div>
                 )}
                 {data.building && (
@@ -59,24 +65,11 @@ export default function WebProject({ data, index }: { data: Project; index: numb
                         <TrafficCone weight="fill" />
                     </div>
                 )}
-                <Image
-                    src={screenshot.url}
-                    alt="Screenshot of the website."
-                    width={screenshot.width}
-                    height={screenshot.height}
-                />
             </div>
             <h3>{data.name}</h3>
-            {data.link && <Button type="anchor" text={data.link} icon={<ArrowSquareOut />} href={data.link} />}
-            <div className={styles.metadata}>
-                <div className={styles.industry}>
-                    <Tag />
-                    <p>{data.industry}</p>
-                </div>
-                <div className={styles.year}>
-                    <CalendarBlank />
-                    <p>{data.year}</p>
-                </div>
+            <div className={styles.actions}>
+                <Button type="button" text="View" icon={<Eye />} onClick={() => setProject(data)} />
+                {data.url && <Button type="anchor" text="Visit" icon={<ArrowSquareOut />} href={data.url} />}
             </div>
         </motion.article>
     );

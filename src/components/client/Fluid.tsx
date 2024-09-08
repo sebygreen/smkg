@@ -52,19 +52,20 @@ function Plane() {
 
 export default function Fluid() {
     const motions = {
-        start: {
+        hidden: {
             opacity: 0,
         },
-        enter: {
+        shown: {
             opacity: 1,
             transition: {
-                duration: 2,
+                duration: 1,
+                ease: "linear",
             },
         },
     };
 
     return (
-        <motion.div className={styles.canvas} variants={motions} initial="start" animate="enter">
+        <motion.div className={styles.canvas} variants={motions} initial="hidden" animate="shown">
             <Canvas
                 camera={{
                     fov: 20,

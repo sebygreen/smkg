@@ -1,8 +1,21 @@
 :root {
+    --max-width: 1080px;
     --spacing-m: 20px;
     --spacing-s: calc(var(--spacing-m) / 2);
     --spacing-l: calc(var(--spacing-m) * 2);
-    --max-width: 1100px;
+    --spacing-t: 5px;
+    --foreground: 255, 255, 255;
+    --background: 30, 30, 30;
+    --purple: 149, 76, 218;
+    --red: 235, 31, 41;
+    --blue: 124, 204, 235;
+    --yellow: 235, 183, 67;
+}
+
+@media (min-width: 480px) {
+    :root {
+        --spacing-m: 30px;
+    }
 }
 
 * {
@@ -20,17 +33,11 @@ body {
 html {
     color-scheme: dark;
     font-size: 16px;
-    background-color: rgb(30, 30, 30);
+    background-color: rgb(var(--background));
 }
 
 body {
-    min-height: 100svh;
-}
-
-@media (min-width: 480px) {
-    :root {
-        --spacing-m: 30px;
-    }
+    min-height: 100vh;
 }
 
 a {

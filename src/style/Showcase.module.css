@@ -2,14 +2,9 @@
     position: fixed;
     inset: 0;
     overflow-y: auto;
-    z-index: 2;
-}
-
-.backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(var(--background), 0.8);
     backdrop-filter: blur(10px);
+    z-index: 2;
 }
 
 .wrapper {
@@ -17,8 +12,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: var(--spacing-l);
+    gap: var(--spacing-m);
     padding: var(--spacing-m);
+    max-width: 860px;
+    margin: 0 auto;
     height: fit-content;
     min-height: 100%;
 }
@@ -28,7 +25,7 @@
 }
 
 .heading h2 {
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-s);
 }
 
 .photos {
@@ -41,39 +38,6 @@
     gap: var(--spacing-s);
 }
 
-.logo {
-    border-radius: 15px;
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    width: fit-content;
-    position: relative;
-}
-
-.logo img {
-    display: block;
-    border-radius: 5px;
-    width: auto;
-    height: 86px;
-}
-
-.interface {
-    border-radius: 15px;
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px;
-    width: 100%;
-    position: relative;
-    max-width: 1024px;
-}
-
-.interface img {
-    display: block;
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
-}
-
 .icon {
     width: fit-content;
     position: relative;
@@ -81,6 +45,64 @@
 
 .icon img {
     display: block;
+    height: 128px;
+    width: auto;
+}
+
+.branding {
+    border-radius: 15px;
+    box-shadow: inset 0 1px 0 0 rgba(var(--foreground), 0.1);
+    background: rgba(var(--foreground), 0.1);
+    padding: 10px;
+    width: fit-content;
+    position: relative;
+}
+
+.branding img {
+    display: block;
+    border-radius: 5px;
+    width: auto;
+    height: 86px;
+}
+
+.interface,
+.site {
+    border-radius: 15px;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    max-width: var(--max-width);
+}
+
+.interface img,
+.site img {
+    display: block;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.branding {
+    width: fit-content;
+    position: relative;
+}
+
+.branding img {
+    display: block;
     height: 86px;
     width: auto;
+}
+
+.download {
+    position: relative;
+    margin: 0 auto;
+}
+
+.download .loader {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + var(--spacing-s));
+    translate: -50% 0;
 }

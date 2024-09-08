@@ -1,25 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
-
-import localFont from "next/font/local";
 import Header from "@/components/client/Header";
 import Script from "next/script";
-
-const satoshi = localFont({
-    src: [
-        {
-            path: "../assets/fonts/Satoshi[wght].ttf",
-            style: "normal",
-            weight: "100 900",
-        },
-        {
-            path: "../assets/fonts/Satoshi-Italic[wght].ttf",
-            style: "italic",
-            weight: "100 900",
-        },
-    ],
-});
+import { Satoshi } from "@/utilities/fonts";
 
 export const metadata: Metadata = {
     title: "Sebastien Green",
@@ -33,7 +17,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={satoshi.className}>
+            <body className={Satoshi.className}>
                 <Header />
                 {children}
             </body>

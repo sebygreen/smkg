@@ -4,7 +4,7 @@ import styles from "@/style/Button.module.css";
 import { ReactNode } from "react";
 import Link from "next/link";
 
-interface Button {
+interface ButtonSchema {
     type: "button" | "anchor" | "route";
     icon: ReactNode;
     text?: string;
@@ -12,11 +12,11 @@ interface Button {
     blur?: boolean;
     disabled?: boolean;
     href?: string;
-    click?: any;
-    style?: string;
+    onClick?: any;
+    className?: string;
 }
 
-export default function Button({ type, light, blur, disabled, text, icon, href, click, style }: Button) {
+export default function Button({ type, light, blur, disabled, text, icon, href, onClick, className }: ButtonSchema) {
     let variant: string[] = [styles.button];
     if (text) {
         variant.push(styles.full);
@@ -32,11 +32,11 @@ export default function Button({ type, light, blur, disabled, text, icon, href, 
     if (disabled) {
         variant.push(styles.disabled);
     }
-    if (style) {
-        variant.push(style);
+    if (className) {
+        variant.push(className);
     }
     return type === "button" ? (
-        <button className={variant.join(" ")} onClick={click}>
+        <button className={variant.join(" ")} onClick={onClick}>
             {!!text && text}
             {icon}
         </button>
