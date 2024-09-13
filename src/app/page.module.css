@@ -1,3 +1,50 @@
-.main {
+.container {
     min-height: inherit;
+    position: relative;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: var(--spacing-l) var(--spacing-l) calc(var(--spacing-l) + 38px) var(--spacing-l);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: var(--spacing-m);
+    min-height: inherit;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-s);
+}
+
+.wrapper .content h1 {
+    font-size: 1.5rem;
+}
+
+.content p {
+    opacity: 0.9;
+}
+
+.content p span {
+    opacity: 1;
+    font-weight: bold;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+@media (min-width: 480px) {
+    .wrapper .content h1 {
+        font-size: 2rem;
+    }
 }

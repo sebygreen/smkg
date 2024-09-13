@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useContext } from "react";
 import { CreditsContext } from "@/context/Credits";
 import Button from "@/components/Button";
-import { Code, HandsPraying } from "@phosphor-icons/react/dist/ssr";
+import { Code, Heart } from "@phosphor-icons/react/dist/ssr";
 
 export default function Credits() {
     const { credits, setCredits } = useContext(CreditsContext);
@@ -97,6 +97,6 @@ export default function Credits() {
 export function ToggleCredits() {
     const { setCredits } = useContext(CreditsContext);
     return (
-        <Button type="button" text="Credits" icon={<HandsPraying weight="fill" />} onClick={() => setCredits(true)} />
+        <Button type="button" text="Credits" icon={<Heart weight="fill" />} onClick={() => setCredits(true)} />
     );
 }

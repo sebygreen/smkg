@@ -1,8 +1,6 @@
 "use client";
 
-// @ts-ignore
 import fragment from "@/assets/shaders/fragment.glsl";
-// @ts-ignore
 import vertex from "@/assets/shaders/vertex.glsl";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -51,21 +49,13 @@ function Plane() {
 }
 
 export default function Fluid() {
-    const motions = {
-        hidden: {
-            opacity: 0,
-        },
-        shown: {
-            opacity: 1,
-            transition: {
-                duration: 1,
-                ease: "linear",
-            },
-        },
-    };
-
     return (
-        <motion.div className={styles.canvas} variants={motions} initial="hidden" animate="shown">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 3, ease: "easeOut" }}
+            className={styles.canvas}
+        >
             <Canvas
                 camera={{
                     fov: 20,
