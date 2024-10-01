@@ -4,48 +4,39 @@ export interface ImageSchema {
     height: number;
 }
 
-export interface SiteSchema {
+export interface ProjectBase {
     id: string;
     collection: string;
+    name: string;
+    year: number;
+}
+
+export interface ProjectSite extends ProjectBase {
     type: "site";
     archived: boolean;
     building: boolean;
-    name: string;
-    year: number;
     industry: string;
     preview: ImageSchema;
-    image: ImageSchema;
+    images: ImageSchema[];
     url?: string;
 }
 
-export interface IconSchema {
-    id: string;
-    collection: string;
+export interface ProjectIcon extends ProjectBase {
     type: "icon";
-    name: string;
-    year: number;
     installs: number;
     preview: ImageSchema;
     images: ImageSchema[];
     download: string;
 }
 
-export interface InterfaceSchema {
-    id: string;
-    collection: string;
+export interface ProjectInterface extends ProjectBase {
     type: "interface";
-    name: string;
-    year: number;
     preview: ImageSchema;
     images: ImageSchema[];
 }
 
-export interface BrandingSchema {
-    id: string;
-    collection: string;
+export interface ProjectBranding extends ProjectBase {
     type: "branding";
-    name: string;
-    year: number;
     preview: ImageSchema;
     images: ImageSchema[];
 }

@@ -2,19 +2,23 @@
 
 import { useEffect } from "react";
 import { ArrowsClockwise, SmileySad } from "@phosphor-icons/react/dist/ssr";
-import styles from "@/style/Error.module.css";
-import Button from "@/components/Button";
+import Button from "@/components/client/Button";
 
-export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+interface ErrorBase {
+    error: Error & { digest?: string };
+    reset: () => void;
+}
+
+export default function Error({ error, reset }: ErrorBase) {
     useEffect(() => {
         console.error(error);
     }, [error]);
 
     return (
-        <div className={styles.container}>
+        <main id="error">
             <SmileySad weight="fill" />
             <p>An unexpected error has occurred.</p>
-            <Button type="button" icon={<ArrowsClockwise />} text="Refresh" onClick={() => reset()} />
-        </div>
+            <Button type="action" colour="primary" icon={<ArrowsClockwise />} text="Refresh" onClick={() => reset()} />
+        </main>
     );
 }

@@ -1,6 +1,6 @@
 import PocketBase from "pocketbase";
 import { createBranding, createIcon, createInterface, createSite } from "@/utilities/create";
-import { BrandingSchema, IconSchema, InterfaceSchema } from "@/utilities/types";
+import { ProjectBranding, ProjectIcon, ProjectInterface } from "@/utilities/types";
 
 export const fetchSites = async () => {
     const pb = new PocketBase(process.env.DB_HOST);
@@ -15,11 +15,11 @@ export const fetchSites = async () => {
     }
 };
 
-export const fetchIcons = async (): Promise<IconSchema[]> => {
+export const fetchIcons = async (): Promise<ProjectIcon[]> => {
     const pb = new PocketBase(process.env.DB_HOST);
     try {
         const res = await pb.collection("icons").getFullList({
-            fields: "id, collectionId, name, year, installs, images, download",
+            fields: "id, collectionId, name, year, installs, image, download",
             sort: "-year",
         });
         return res.map((i) => createIcon(i));
@@ -28,7 +28,7 @@ export const fetchIcons = async (): Promise<IconSchema[]> => {
     }
 };
 
-export const fetchInterfaces = async (): Promise<InterfaceSchema[]> => {
+export const fetchInterfaces = async (): Promise<ProjectInterface[]> => {
     const pb = new PocketBase(process.env.DB_HOST);
     try {
         const res = await pb.collection("interfaces").getFullList({
@@ -41,7 +41,7 @@ export const fetchInterfaces = async (): Promise<InterfaceSchema[]> => {
     }
 };
 
-export const fetchBranding = async (): Promise<BrandingSchema[]> => {
+export const fetchBranding = async (): Promise<ProjectBranding[]> => {
     const pb = new PocketBase(process.env.DB_HOST);
     try {
         const res = await pb.collection("branding").getFullList({

@@ -1,44 +1,44 @@
-import styles from "./page.module.css";
-import Credits, { ToggleCredits } from "@/components/client/Credits";
+import { CreditsModal, CreditsToggle } from "@/components/client/modal/Credits";
 import CreditsProvider from "@/context/Credits";
-import Fluid from "@/components/client/Fluid";
-import Logo from "@/components/svg/Logo";
-import Button from "@/components/Button";
+import HomeLogo from "@/components/client/HomeLogo";
 import { CloudWarning, FilePdf, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
+import Button from "@/components/client/Button";
 
-export default function Home() {
+export default function Page() {
     return (
         <CreditsProvider>
-            <Credits />
-            <Fluid />
-            <main className={styles.container}>
-                <div className={styles.wrapper}>
-                    <Logo className={styles.logo} />
-                    <div className={styles.content}>
+            <CreditsModal />
+            <main id="home">
+                <div className="wrapper">
+                    <HomeLogo />
+                    <div className="heading">
                         <h1>Web Developer & Designer</h1>
                         <p>
                             Also known as <span>ottomon</span> and <span>sebygreen</span>.
                         </p>
-                        <div className={styles.links}>
+                        <div className="links">
                             <Button
                                 type="anchor"
-                                text="LinkedIn"
+                                colour="primary"
                                 icon={<LinkedinLogo weight="fill" />}
+                                text="LinkedIn"
                                 href="https://linkedin.com/in/sebastien-green-22a19928a/"
                             />
                             <Button
                                 type="anchor"
+                                colour="primary"
                                 text="Status"
                                 icon={<CloudWarning weight="fill" />}
                                 href="https://status.smkg.me"
                             />
                             <Button
                                 type="anchor"
+                                colour="primary"
                                 text="Experience"
                                 icon={<FilePdf weight="fill" />}
                                 href="/CV.pdf"
                             />
-                            <ToggleCredits />
+                            <CreditsToggle />
                         </div>
                     </div>
                 </div>

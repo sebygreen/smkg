@@ -1,22 +1,20 @@
 "use client";
 
-import styles from "@/style/DesignProject.module.css";
 import { useContext } from "react";
 import { ShowcaseContext } from "@/context/Showcase";
-import { BrandingSchema, IconSchema, InterfaceSchema } from "@/utilities/types";
-import Photo from "@/components/client/Photo";
+import { ProjectBranding, ProjectIcon, ProjectInterface } from "@/utilities/types";
+import Thumbnail from "@/components/client/Thumbnail";
 import { StaggerContext } from "@/context/Stagger";
 import { motion } from "framer-motion";
 import { Download } from "@phosphor-icons/react/dist/ssr";
 
-export default function DesignProject({
-    data,
-    index,
-}: {
-    data: IconSchema | InterfaceSchema | BrandingSchema;
+interface DesignProjectBase {
+    data: ProjectIcon | ProjectInterface | ProjectBranding;
     index: number;
-}) {
-    const { setShowcase } = useContext(ShowcaseContext);
+}
+
+export default function DesignProject({ ...props }: DesignProjectBase) {
+    const { setProject } = useContext(ShowcaseContext);
     const { shown, setShown } = useContext(StaggerContext);
     const motions = {
         project: {
@@ -28,7 +26,7 @@ export default function DesignProject({
                 scale: 1,
                 opacity: 1,
                 transition: {
-                    delay: (index - shown) * 0.05,
+                    delay: (props.index - shown) * 0.05,
                     duration: 0.3,
                     ease: "backOut",
                 },
@@ -38,8 +36,8 @@ export default function DesignProject({
 
     return (
         <motion.article
-            className={`${styles.container} ${styles[data.type]}`}
-            onClick={() => setShowcase(data)}
+            className={`project design ${props.data.type}`}
+            onClick={() => setProject(props.data)}
             variants={motions.project}
             initial="hidden"
             whileInView="visible"
@@ -51,18 +49,16 @@ export default function DesignProject({
                 amount: 0.5,
             }}
         >
-            <div className={styles.image}>
-                <Photo
-                    url={data.preview.url}
-                    alt={`Preview of ${data.name}.`}
-                    width={data.preview.width}
-                    height={data.preview.height}
-                />
-            </div>
-            {data.type === "icon" && (
-                <div className={styles.installs}>
+            <Thumbnail
+                url={props.data.preview.url}
+                alt={`Preview of ${props.data.name}.`}
+                width={props.data.preview.width}
+                height={props.data.preview.height}
+            />
+            {"installs" in props.data && (
+                <div className="installs">
                     <Download />
-                    <p>{data.installs}</p>
+                    <p>{props.data.installs}</p>
                 </div>
             )}
         </motion.article>

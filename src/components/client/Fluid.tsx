@@ -6,8 +6,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Mesh, ShaderMaterial } from "three";
 import { useMemo, useRef } from "react";
-import styles from "@/style/Fluid.module.css";
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 function Plane() {
     const mesh = useRef<Mesh>(null!);
@@ -48,27 +48,36 @@ function Plane() {
     );
 }
 
+function Blur() {
+    const pathname = usePathname();
+
+    return pathname !== "/" && <div className="blur" />;
+}
+
 export default function Fluid() {
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 3, ease: "easeOut" }}
-            className={styles.canvas}
-        >
-            <Canvas
-                camera={{
-                    fov: 20,
-                    near: 0.1,
-                    far: 100,
-                    position: [0, -3, 2],
-                    zoom: 3.5,
-                }}
+        <aside id="fluid">
+            <Blur />
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 3, ease: "easeOut" }}
+                className="canvas"
             >
-                <ambientLight color={0xffffff} intensity={0.5} />
-                <directionalLight color={0xffffff} intensity={0.5} />
-                <Plane />
-            </Canvas>
-        </motion.div>
+                <Canvas
+                    camera={{
+                        fov: 20,
+                        near: 0.1,
+                        far: 100,
+                        position: [0, -3, 2],
+                        zoom: 3.5,
+                    }}
+                >
+                    <ambientLight color={0xffffff} intensity={0.5} />
+                    <directionalLight color={0xffffff} intensity={0.5} />
+                    <Plane />
+                </Canvas>
+            </motion.div>
+        </aside>
     );
 }

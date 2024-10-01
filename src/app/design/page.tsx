@@ -1,14 +1,18 @@
-import styles from "./page.module.css";
 import { FloppyDisk, PaintBucket } from "@phosphor-icons/react/dist/ssr";
 import { fetchBranding, fetchIcons, fetchInterfaces } from "@/utilities/fetch";
 import ShowcaseProvider from "@/context/Showcase";
-import Showcase from "@/components/client/Showcase";
 import DesignProject from "@/components/client/DesignProject";
 import StaggerProvider from "@/context/Stagger";
+import { ShowcaseModal } from "@/components/client/modal/Showcase";
+import { Metadata } from "next";
 
 export const revalidate = 900;
 
-export default async function Design() {
+export const metadata: Metadata = {
+    title: "Design",
+};
+
+export default async function Page() {
     const data = {
         icons: await fetchIcons(),
         interfaces: await fetchInterfaces(),
@@ -17,14 +21,14 @@ export default async function Design() {
 
     return (
         <ShowcaseProvider>
-            <Showcase />
-            <main>
-                <section id="introduction" className={styles.introduction}>
-                    <div className={styles.wrapper}>
-                        <div className={styles.tint}>
+            <ShowcaseModal />
+            <main id="design">
+                <section id="introduction">
+                    <div className="wrapper">
+                        <div className="tint">
                             <PaintBucket weight="duotone" />
                             <h1>Design</h1>
-                            <p className={styles.description}>
+                            <p className="description">
                                 I have always loved to draw, very likely a desire inherited from my parents. My doodles
                                 of choice were geometric landscapes with perfect spacing. This turns out to translate
                                 well to layout based design, such as user interfaces or infographics, which I now
@@ -33,26 +37,26 @@ export default async function Design() {
                         </div>
                     </div>
                 </section>
-                <section id="projects" className={styles.projects}>
-                    <div className={styles.wrapper}>
+                <section id="projects">
+                    <div className="wrapper">
                         <StaggerProvider>
-                            <div className={styles.heading}>
+                            <div className="heading">
                                 <h2>Projects</h2>
                                 <FloppyDisk weight="duotone" />
                             </div>
-                            <div className={styles.icons}>
+                            <div className="icons">
                                 {data.icons.map((i, n) => (
                                     <DesignProject key={i.id} data={i} index={n} />
                                 ))}
                             </div>
-                            <div className={styles.hr} />
-                            <div className={styles.interfaces}>
+                            <div className="hr" />
+                            <div className="interfaces">
                                 {data.interfaces.map((i, n) => (
                                     <DesignProject key={i.id} data={i} index={n + data.icons.length} />
                                 ))}
                             </div>
-                            <div className={styles.hr} />
-                            <div className={styles.branding}>
+                            <div className="hr" />
+                            <div className="branding">
                                 {data.branding.map((i, n) => (
                                     <DesignProject
                                         key={i.id}

@@ -1,4 +1,4 @@
-import { BrandingSchema, IconSchema, ImageSchema, InterfaceSchema, SiteSchema } from "@/utilities/types";
+import { ImageSchema, ProjectBranding, ProjectIcon, ProjectInterface, ProjectSite } from "@/utilities/types";
 import { v4 } from "uuid";
 
 export const createThumbnail = (
@@ -37,7 +37,7 @@ export const createToast = (type: "error" | "success" | "warning", message: stri
     };
 };
 
-export const createSite = (data: any): SiteSchema => {
+export const createSite = (data: any): ProjectSite => {
     return {
         id: data.id,
         collection: data.collectionId,
@@ -48,12 +48,12 @@ export const createSite = (data: any): SiteSchema => {
         year: data.year,
         industry: data.industry,
         preview: createThumbnail(data.image, data.collectionId, data.id, "720x512t"),
-        image: createImage(data.image, data.collectionId, data.id),
+        images: [createImage(data.image, data.collectionId, data.id)],
         url: data.url,
     };
 };
 
-export const createIcon = (data: any): IconSchema => {
+export const createIcon = (data: any): ProjectIcon => {
     return {
         id: data.id,
         collection: data.collectionId,
@@ -61,13 +61,13 @@ export const createIcon = (data: any): IconSchema => {
         name: data.name,
         year: data.year,
         installs: data.installs,
-        preview: createThumbnail(data.images[0], data.collectionId, data.id, "128x128"),
-        images: data.images.map((i: string) => createImage(i, data.collectionId, data.id)),
+        preview: createThumbnail(data.image, data.collectionId, data.id, "128x128"),
+        images: [createImage(data.image, data.collectionId, data.id)],
         download: data.download,
     };
 };
 
-export const createInterface = (data: any): InterfaceSchema => {
+export const createInterface = (data: any): ProjectInterface => {
     return {
         id: data.id,
         collection: data.collectionId,
@@ -79,7 +79,7 @@ export const createInterface = (data: any): InterfaceSchema => {
     };
 };
 
-export const createBranding = (data: any): BrandingSchema => {
+export const createBranding = (data: any): ProjectBranding => {
     return {
         id: data.id,
         collection: data.collectionId,

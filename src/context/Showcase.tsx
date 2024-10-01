@@ -1,20 +1,25 @@
 "use client";
 
-import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { BrandingSchema, IconSchema, InterfaceSchema } from "@/utilities/types";
+import React, { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
+import { ProjectBranding, ProjectIcon, ProjectInterface, ProjectSite } from "@/utilities/types";
 
-export const ShowcaseContext = createContext<any>(null);
+interface ContextBase {
+    project: ProjectSite | ProjectIcon | ProjectInterface | ProjectBranding | null;
+    setProject: Dispatch<SetStateAction<ProjectSite | ProjectIcon | ProjectInterface | ProjectBranding | null>>;
+}
+
+export const ShowcaseContext = createContext<ContextBase>(null!);
 
 export default function ShowcaseProvider({ children }: { children: ReactNode }) {
-    const [showcase, setShowcase] = useState<IconSchema | InterfaceSchema | BrandingSchema | null>(null);
+    const [project, setProject] = useState<ProjectSite | ProjectIcon | ProjectInterface | ProjectBranding | null>(null);
 
     useEffect(() => {
-        if (showcase) {
+        if (project) {
             document.documentElement.style.overflow = "hidden";
         } else {
             document.documentElement.removeAttribute("style");
         }
-    }, [showcase]);
+    }, [project]);
 
-    return <ShowcaseContext.Provider value={{ showcase, setShowcase }}>{children}</ShowcaseContext.Provider>;
+    return <ShowcaseContext.Provider value={{ project, setProject }}>{children}</ShowcaseContext.Provider>;
 }
