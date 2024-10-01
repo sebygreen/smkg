@@ -8,5 +8,7 @@
     "bracketSpacing": true,
     "jsxBracketSameLine": false,
     "arrowParens": "always",
-    "proseWrap": "never"
+    "proseWrap": "always",
+    "experimentalTernaries": true,
+    "vueIndentScriptAndStyle": true
 }
