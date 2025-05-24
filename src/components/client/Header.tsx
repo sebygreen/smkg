@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useAnimate } from "framer-motion";
+import { useAnimate } from "motion/react";
 import { clsx } from "clsx";
 
 export default function Header() {
@@ -17,70 +17,6 @@ export default function Header() {
     const worm = useRef<HTMLDivElement>(null);
     const [page, setPage] = useState<number | null>(null);
 
-    const motions = {
-        right: (middle: { current: number; target: number }) => {
-            const delta = middle.target - middle.current;
-            animate(
-                ".worm",
-                {
-                    height: [4, 1, 1, 4],
-                    width: [4, delta + 4, 4],
-                    left: middle.target - 2,
-                },
-                {
-                    onComplete: () => console.log("right animation complete"),
-                    height: {
-                        duration: 0.4,
-                    },
-                    width: {
-                        delay: 0.1,
-                        duration: 0.2,
-                    },
-                    left: {
-                        delay: 0.2,
-                        duration: 0.1,
-                    },
-                },
-            );
-        },
-        left: (middle: { current: number; target: number }) => {
-            const delta = middle.current - middle.target;
-            animate(
-                ".worm",
-                {
-                    height: [4, 1, 1, 4],
-                    width: [4, delta + 4, 4],
-                    left: middle.target - 2,
-                },
-                {
-                    onComplete: () => console.log("left animation complete"),
-                    height: {
-                        duration: 0.4,
-                    },
-                    width: {
-                        delay: 0.1,
-                        duration: 0.2,
-                    },
-                    left: {
-                        delay: 0.1,
-                        duration: 0.1,
-                    },
-                },
-            );
-        },
-    };
-
-    useEffect(() => {
-        if (page === null) {
-            const index = paths.current.map((i) => i.path).indexOf(pathname);
-            const anchors = header.current!.querySelectorAll("a");
-            const anchor = anchors[index];
-            const middle = anchor.offsetLeft + anchor.offsetWidth / 2;
-            worm.current!.style.left = `${middle - 2}px`;
-            setPage(index);
-        }
-    }, [page, pathname, header]);
-
     const changePage = (target: number) => {
         if (page === null) return;
         if (target === page) return;
@@ -91,10 +27,44 @@ export default function Header() {
             target: anchor.offsetLeft + anchor.offsetWidth / 2,
             current: current.offsetLeft + current.offsetWidth / 2,
         };
-        if (target < page) motions.left(middle);
-        if (target > page) motions.right(middle);
+        const forward = target > page;
+        const delta = forward ? middle.target - middle.current : middle.current - middle.target;
+        console.log(forward, delta);
+        animate(
+            ".worm",
+            {
+                scale: [2, 1, 1, 2],
+                width: [2, delta + 2, 2],
+                x: middle.target - 2,
+            },
+            {
+                scale: {
+                    duration: 0.4,
+                },
+                width: {
+                    delay: 0.1,
+                    duration: 0.2,
+                },
+                x: {
+                    delay: forward ? 0.2 : 0.1,
+                    duration: 0.1,
+                },
+                ease: "easeInOut",
+            },
+        );
         setPage(target);
     };
+
+    useEffect(() => {
+        if (page === null) {
+            const index = paths.current.map((i) => i.path).indexOf(pathname);
+            const anchors = header.current!.querySelectorAll("a");
+            const anchor = anchors[index];
+            const middle = anchor.offsetLeft + anchor.offsetWidth / 2;
+            worm.current!.style.transform = `translateX(${middle - 2}px) scale(2)`;
+            setPage(index);
+        }
+    }, [page, pathname, header]);
 
     return (
         <header ref={header}>
@@ -105,7 +75,11 @@ export default function Header() {
                     </Link>
                 ))}
                 <div className="track">
-                    <div ref={worm} className={clsx("worm", page !== null && "shown")} style={{ width: "4px" }} />
+                    <div
+                        ref={worm}
+                        className={clsx("worm", page !== null && "shown")}
+                        style={{ transform: "scale(0)" }}
+                    />
                 </div>
             </nav>
         </header>

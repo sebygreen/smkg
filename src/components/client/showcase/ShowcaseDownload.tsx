@@ -1,52 +1,52 @@
 "use client";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useTransition } from "react";
 import { downloadFile } from "@/utilities/tools";
 import Button from "@/components/client/Button";
-import { Download } from "@phosphor-icons/react/dist/ssr";
+import { DownloadIcon } from "@phosphor-icons/react/dist/ssr";
 import Loader from "@/components/Loader";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
+import { download } from "@/actions/download";
+import { useShowcase } from "@/context/Showcase";
 
 interface ShowcaseDownloadBase {
     id: string;
     name: string;
 }
 
-export default function ShowcaseDownload({ ...props }: ShowcaseDownloadBase) {
-    const [pending, setPending] = useState<boolean>(false);
-
-    const motions = {
-        section: {
-            hidden: {
-                opacity: 0,
-                scale: 0.95,
-                transition: {
-                    duration: 0.1,
-                    ease: "easeIn",
-                },
-            },
-            shown: {
-                opacity: 1,
-                scale: 1,
-                transition: {
-                    duration: 0.3,
-                    ease: "backOut",
-                },
+const motions = {
+    section: {
+        hidden: {
+            opacity: 0,
+            scale: 0.95,
+            transition: {
+                duration: 0.1,
+                ease: "easeIn",
             },
         },
-    };
+        shown: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.3,
+                ease: "backOut",
+            },
+        },
+    },
+};
+
+export default function ShowcaseDownload({ ...props }: ShowcaseDownloadBase) {
+    const { project, setProject } = useShowcase();
+    const [pending, dispatch] = useTransition();
 
     const handleDownload = async (e: MouseEvent) => {
         e.stopPropagation();
-        setPending(true);
-        try {
-            const res = await fetch(`/api/download?id=${props.id}`, { method: "GET" });
-            const blob = await res.blob();
-            downloadFile(blob, `${props.name}.icns`);
-            setPending(false);
-        } catch (error) {
-            setPending(false);
-        }
+        dispatch(async () => {
+            const res = await download(props.id);
+            if (!res.ok) return;
+            if (res.ok && res.blob) downloadFile(res.blob, `${props.name}.icns`);
+            if (project && "installs" in project) setProject({...project, installs: project.installs + 1})
+        });
     };
 
     return (
@@ -54,7 +54,7 @@ export default function ShowcaseDownload({ ...props }: ShowcaseDownloadBase) {
             <Button
                 type="action"
                 colour="primary"
-                icon={<Download />}
+                icon={<DownloadIcon />}
                 text="Download"
                 disabled={pending}
                 onClick={handleDownload}

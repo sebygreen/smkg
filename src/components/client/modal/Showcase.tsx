@@ -1,145 +1,121 @@
 "use client";
 
-import { useContext, useState } from "react";
-import { ShowcaseContext } from "@/context/Showcase";
-import { AnimatePresence, AnimationSequence, motion, useAnimate } from "framer-motion";
-import { ArrowLeft, ArrowRight, CalendarBlank, Download, Tag } from "@phosphor-icons/react/dist/ssr";
+import { useRef } from "react";
+import { useShowcase } from "@/context/Showcase";
+import { AnimatePresence, motion, useAnimate } from "motion/react";
+import {
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    CalendarBlankIcon,
+    DownloadIcon,
+    TagIcon,
+    XIcon,
+} from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/client/Button";
-import { CloseIcon } from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
 import ShowcaseDownload from "@/components/client/showcase/ShowcaseDownload";
 import Slide from "@/components/client/showcase/ShowcaseSlide";
 
+const motions = {
+    modal: {
+        hidden: {
+            opacity: 0,
+            transition: {
+                duration: 0.3,
+                ease: "easeIn",
+                when: "afterChildren",
+            },
+        },
+        shown: {
+            opacity: 1,
+            transition: {
+                duration: 0.3,
+                ease: "easeOut",
+                when: "beforeChildren",
+                staggerChildren: 0.1,
+            },
+        },
+    },
+    section: {
+        hidden: {
+            opacity: 0,
+            scale: 0.95,
+            transition: {
+                duration: 0.1,
+                ease: "easeIn",
+            },
+        },
+        shown: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.3,
+                ease: "backOut",
+            },
+        },
+    },
+};
+
 export function ShowcaseModal() {
-    const { project, setProject } = useContext(ShowcaseContext);
-    const [slide, setSlide] = useState<number>(0);
+    const { project, setProject } = useShowcase();
     const [scope, animate] = useAnimate();
+    const slide = useRef<number>(0);
 
-    const controls = {
-        next: () => {
-            if (project && slide < project.images.length - 1) {
-                const current = slide;
-                const target = slide + 1;
-                animate(
-                    ".worm",
-                    {
-                        height: [4, 1, 1, 4],
-                        width: [4, 17, 4],
-                        x: target * 17,
-                    },
-                    {
-                        height: {
-                            duration: 0.4,
-                        },
-                        width: {
-                            delay: 0.1,
-                            duration: 0.2,
-                        },
-                        x: {
-                            delay: 0.2,
-                            duration: 0.1,
-                        },
-                    },
-                );
-                const sequence: AnimationSequence = [
-                    [
-                        ".slider",
-                        { x: `calc(-${current * 100}% - ${current * 50 + 5}px)`, opacity: 0 },
-                        { duration: 0.2, ease: "backIn" },
-                    ],
-                    [".slider", { x: `calc(-${target * 100}% - ${target * 50 - 5}px)` }, { duration: 0 }],
-                    [
-                        ".slider",
-                        { x: `calc(-${target * 100}% - ${target * 50}px)`, opacity: 1 },
-                        { duration: 0.2, ease: "backOut" },
-                    ],
-                ];
-                animate(sequence);
-                setSlide((previous) => previous + 1);
-            }
-        },
-        back: () => {
-            if (slide > 0) {
-                const current = slide;
-                const target = slide - 1;
-                animate(
-                    ".worm",
-                    {
-                        height: [4, 1, 1, 4],
-                        width: [4, 17, 4],
-                        x: target * 17,
-                    },
-                    {
-                        height: {
-                            duration: 0.4,
-                        },
-                        width: {
-                            delay: 0.1,
-                            duration: 0.2,
-                        },
-                        x: {
-                            delay: 0.1,
-                            duration: 0.1,
-                        },
-                    },
-                );
-                const sequence: AnimationSequence = [
-                    [
-                        ".slider",
-                        { x: `calc(-${current * 100}% - ${current * 50 - 5}px)`, opacity: 0 },
-                        { duration: 0.2, ease: "backIn" },
-                    ],
-                    [".slider", { x: `calc(-${target * 100}% - ${target * 50 + 5}px)` }, { duration: 0 }],
-                    [
-                        ".slider",
-                        { x: `calc(-${target * 100}% - ${target * 50}px)`, opacity: 1 },
-                        { duration: 0.2, ease: "backOut" },
-                    ],
-                ];
-                animate(sequence);
-                setSlide((previous) => previous - 1);
-            }
-        },
-    };
-
-    const motions = {
-        modal: {
-            hidden: {
-                opacity: 0,
-                transition: {
-                    duration: 0.3,
-                    ease: "easeIn",
-                    when: "afterChildren",
-                },
+    function toSlide(target: number) {
+        const forward = target > slide.current;
+        const delta = Math.abs(target - slide.current);
+        animate(
+            ".worm",
+            {
+                scale: [2, 1, 1, 2],
+                width: [2, 10 * delta + 2 * delta + 2, 2],
+                x: target * 17,
             },
-            shown: {
-                opacity: 1,
-                transition: {
-                    duration: 0.3,
-                    ease: "easeOut",
-                    when: "beforeChildren",
-                    staggerChildren: 0.1,
+            {
+                scale: {
+                    duration: 0.4,
                 },
-            },
-        },
-        section: {
-            hidden: {
-                opacity: 0,
-                scale: 0.95,
-                transition: {
+                width: {
+                    delay: 0.1,
+                    duration: 0.2,
+                },
+                x: {
+                    delay: forward ? 0.2 : 0.1,
                     duration: 0.1,
-                    ease: "easeIn",
                 },
+                ease: "easeInOut",
             },
-            shown: {
-                opacity: 1,
-                scale: 1,
-                transition: {
-                    duration: 0.3,
-                    ease: "backOut",
-                },
+        );
+        animate(
+            ".slider",
+            {
+                x: `calc(-${target * 100}% - ${target * 50}px)`,
+                opacity: [1, 0, 1],
             },
-        },
-    };
+            {
+                duration: 0.4,
+                ease: "circInOut",
+            },
+        );
+        slide.current = target;
+    }
+
+    function next() {
+        if (!project) return;
+        if (project && slide.current === project.images.length - 1) {
+            toSlide(0);
+        } else {
+            toSlide(slide.current + 1);
+        }
+    }
+
+    function back() {
+        if (!project) return;
+        if (slide.current === 0) {
+            toSlide(project.images.length - 1);
+        } else {
+            toSlide(slide.current - 1);
+        }
+    }
 
     return (
         <AnimatePresence>
@@ -174,24 +150,12 @@ export function ShowcaseModal() {
                                         <div key={n} className="dot" />
                                     ))}
                                     <div className="track">
-                                        <div className="worm" />
+                                        <div className="worm" style={{ transform: "scale(2)" }} />
                                     </div>
                                 </div>
                                 <div className="buttons">
-                                    <Button
-                                        type="action"
-                                        colour="primary"
-                                        icon={<ArrowLeft />}
-                                        onClick={controls.back}
-                                        disabled={slide <= 0}
-                                    />
-                                    <Button
-                                        type="action"
-                                        colour="primary"
-                                        icon={<ArrowRight />}
-                                        onClick={controls.next}
-                                        disabled={slide >= project.images.length - 1}
-                                    />
+                                    <Button type="action" colour="primary" icon={<ArrowLeftIcon />} onClick={back} />
+                                    <Button type="action" colour="primary" icon={<ArrowRightIcon />} onClick={next} />
                                 </div>
                             </motion.section>
                         )}
@@ -200,18 +164,18 @@ export function ShowcaseModal() {
                             <h2>{project.name}</h2>
                             <ul className="tags">
                                 <li className="tag">
-                                    <CalendarBlank />
+                                    <CalendarBlankIcon />
                                     <p>{project.year}</p>
                                 </li>
                                 {"industry" in project && (
                                     <li className="tag">
-                                        <Tag />
+                                        <TagIcon />
                                         <p>{project.industry}</p>
                                     </li>
                                 )}
                                 {"installs" in project && (
                                     <li className="tag">
-                                        <Download />
+                                        <DownloadIcon />
                                         <p>{project.installs}</p>
                                     </li>
                                 )}
@@ -221,9 +185,9 @@ export function ShowcaseModal() {
                             <Button
                                 type="action"
                                 colour="primary"
-                                icon={<CloseIcon />}
+                                icon={<XIcon />}
                                 onClick={() => {
-                                    setSlide(0);
+                                    slide.current = 0;
                                     setProject(null);
                                 }}
                             />

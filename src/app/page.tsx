@@ -1,7 +1,7 @@
 import { CreditsModal, CreditsToggle } from "@/components/client/modal/Credits";
 import CreditsProvider from "@/context/Credits";
 import HomeLogo from "@/components/client/HomeLogo";
-import { CloudWarning, FilePdf, LinkedinLogo } from "@phosphor-icons/react/dist/ssr";
+import { FilePdfIcon, LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/client/Button";
 
 export default function Page() {
@@ -20,22 +20,15 @@ export default function Page() {
                             <Button
                                 type="anchor"
                                 colour="primary"
-                                icon={<LinkedinLogo weight="fill" />}
+                                icon={<LinkedinLogoIcon weight="fill" />}
                                 text="LinkedIn"
                                 href="https://linkedin.com/in/sebastien-green-22a19928a/"
                             />
                             <Button
                                 type="anchor"
                                 colour="primary"
-                                text="Status"
-                                icon={<CloudWarning weight="fill" />}
-                                href="https://status.smkg.me"
-                            />
-                            <Button
-                                type="anchor"
-                                colour="primary"
                                 text="Experience"
-                                icon={<FilePdf weight="fill" />}
+                                icon={<FilePdfIcon weight="fill" />}
                                 href="/CV.pdf"
                             />
                             <CreditsToggle />

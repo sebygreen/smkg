@@ -1,8 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import Link from "next/link";
-import { MouseEvent } from "react";
 
 interface ButtonBase {
     colour: "primary" | "secondary";

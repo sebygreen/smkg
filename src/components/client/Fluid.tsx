@@ -6,7 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { Mesh, ShaderMaterial } from "three";
 import { useMemo, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 
 function Plane() {
@@ -50,7 +50,6 @@ function Plane() {
 
 function Blur() {
     const pathname = usePathname();
-
     return pathname !== "/" && <div className="blur" />;
 }
 

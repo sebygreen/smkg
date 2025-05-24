@@ -1,72 +1,70 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useContext } from "react";
-import { CreditsContext } from "@/context/Credits";
-import { GithubLogo, Heart } from "@phosphor-icons/react/dist/ssr";
-import { CloseIcon } from "next/dist/client/components/react-dev-overlay/internal/icons/CloseIcon";
+import { AnimatePresence, motion } from "motion/react";
+import { useCredits } from "@/context/Credits";
+import { GithubLogoIcon, HeartIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/client/Button";
 
-export function CreditsModal() {
-    const { credits, setCredits } = useContext(CreditsContext);
+const motions = {
+    modal: {
+        hidden: {
+            opacity: 0,
+            transition: {
+                duration: 0.3,
+                ease: "easeIn",
+                when: "afterChildren",
+            },
+        },
+        shown: {
+            opacity: 1,
+            transition: {
+                duration: 0.3,
+                ease: "easeOut",
+                when: "beforeChildren",
+                staggerChildren: 0.1,
+            },
+        },
+    },
+    section: {
+        hidden: {
+            opacity: 0,
+            scale: 0.975,
+            transition: {
+                duration: 0.3,
+                ease: "easeIn",
+            },
+        },
+        shown: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.3,
+                ease: "backOut",
+            },
+        },
+    },
+    close: {
+        hidden: {
+            opacity: 0,
+            scale: 0.9,
+            transition: {
+                duration: 0.3,
+                ease: "easeIn",
+            },
+        },
+        shown: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+                duration: 0.3,
+                ease: "backOut",
+            },
+        },
+    },
+};
 
-    const motions = {
-        modal: {
-            hidden: {
-                opacity: 0,
-                transition: {
-                    duration: 0.3,
-                    ease: "easeIn",
-                    when: "afterChildren",
-                },
-            },
-            shown: {
-                opacity: 1,
-                transition: {
-                    duration: 0.3,
-                    ease: "easeOut",
-                    when: "beforeChildren",
-                    staggerChildren: 0.1,
-                },
-            },
-        },
-        section: {
-            hidden: {
-                opacity: 0,
-                scale: 0.975,
-                transition: {
-                    duration: 0.3,
-                    ease: "easeIn",
-                },
-            },
-            shown: {
-                opacity: 1,
-                scale: 1,
-                transition: {
-                    duration: 0.3,
-                    ease: "backOut",
-                },
-            },
-        },
-        close: {
-            hidden: {
-                opacity: 0,
-                scale: 0.9,
-                transition: {
-                    duration: 0.3,
-                    ease: "easeIn",
-                },
-            },
-            shown: {
-                opacity: 1,
-                scale: 1,
-                transition: {
-                    duration: 0.3,
-                    ease: "backOut",
-                },
-            },
-        },
-    };
+export function CreditsModal() {
+    const { open, toggle } = useCredits();
 
     function handleBubble(e: any) {
         e.stopPropagation();
@@ -74,10 +72,10 @@ export function CreditsModal() {
 
     return (
         <AnimatePresence>
-            {credits && (
+            {open && (
                 <motion.aside
                     id="credits"
-                    onClick={() => setCredits(false)}
+                    onClick={toggle}
                     variants={motions.modal}
                     initial="hidden"
                     animate="shown"
@@ -120,18 +118,18 @@ export function CreditsModal() {
                                 uuid
                             </a>
                         </div>
-                        <p>This website uses no cookies or local storage of any kind.</p>
+                        <p>This website uses no cookies or local storage.</p>
                         <Button
                             type="anchor"
                             colour="primary"
-                            icon={<GithubLogo />}
+                            icon={<GithubLogoIcon />}
                             text="Source"
                             href="https://github.com/sebygreen/smkg"
                         />
-                        <p className="copyright">&copy; 2024 Sebastien Green</p>
+                        <p className="copyright">&copy; 2025 smkg</p>
                     </motion.div>
                     <motion.span variants={motions.close}>
-                        <Button type="action" colour="primary" icon={<CloseIcon />} onClick={() => setCredits(false)} />
+                        <Button type="action" colour="primary" icon={<XIcon />} onClick={toggle} />
                     </motion.span>
                 </motion.aside>
             )}
@@ -140,14 +138,6 @@ export function CreditsModal() {
 }
 
 export function CreditsToggle() {
-    const { setCredits } = useContext(CreditsContext);
-    return (
-        <Button
-            type="action"
-            colour="primary"
-            icon={<Heart weight="fill" />}
-            text="Credits"
-            onClick={() => setCredits(true)}
-        />
-    );
+    const { toggle } = useCredits();
+    return <Button type="action" colour="primary" icon={<HeartIcon weight="fill" />} text="Credits" onClick={toggle} />;
 }

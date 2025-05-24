@@ -1,19 +1,35 @@
 "use client";
 
-import React, { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-export const CreditsContext = createContext<{ credits: boolean; setCredits: Dispatch<SetStateAction<boolean>> }>(null!);
+interface ContextParams {
+    open: boolean;
+    toggle: () => void;
+}
+
+export const CreditsContext = createContext<ContextParams>({
+    open: false,
+    toggle: () => null,
+});
+
+export function useCredits() {
+    const value = useContext(CreditsContext);
+    if (process.env.NODE_ENV !== "production") {
+        if (!value) throw new Error("useToast must be wrapped in a <CreditsProvider />");
+    }
+    return value;
+}
 
 export default function CreditsProvider({ children }: { children: ReactNode }) {
-    const [credits, setCredits] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(false);
 
     useEffect(() => {
-        if (credits) {
+        if (open) {
             document.documentElement.style.overflow = "hidden";
         } else {
             document.documentElement.removeAttribute("style");
         }
-    }, [credits]);
+    }, [open]);
 
-    return <CreditsContext.Provider value={{ credits, setCredits }}>{children}</CreditsContext.Provider>;
+    return <CreditsContext.Provider value={{ open, toggle: () => setOpen(!open) }}>{children}</CreditsContext.Provider>;
 }

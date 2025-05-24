@@ -9,26 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@icons-pack/react-simple-icons": "^12.3.0",
-    "@phosphor-icons/react": "^2.1.7",
-    "@react-three/fiber": "^9.1.0",
+    "@icons-pack/react-simple-icons": "^12.8.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "@react-three/fiber": "^9.1.2",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.9.0",
-    "next": "15.2.3",
-    "pocketbase": "^0.25.2",
-    "react": "^19",
-    "react-dom": "^19",
-    "three": "^0.174.0",
+    "motion": "^12.12.2",
+    "next": "^15.3.2",
+    "pocketbase": "^0.26.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.176.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.174.0",
+    "@types/three": "^0.176.0",
     "@types/uuid": "^10.0.0",
-    "eslint": "^9.23.0",
-    "eslint-config-next": "15.2.3",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
     "prettier": "^3.5.3",
     "typescript": "^5"
   }

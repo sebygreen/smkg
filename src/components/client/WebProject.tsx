@@ -1,14 +1,12 @@
 "use client";
 
-import { useContext } from "react";
-import { motion } from "framer-motion";
-import { ArrowSquareOut, TrafficCone } from "@phosphor-icons/react/dist/ssr";
+import { motion } from "motion/react";
+import { ArrowSquareOutIcon, EyeIcon, PackageIcon, TrafficConeIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/client/Button";
-import { StaggerContext } from "@/context/Stagger";
+import { useStagger } from "@/context/Stagger";
 import { ProjectSite } from "@/utilities/types";
 import Thumbnail from "@/components/client/Thumbnail";
-import { Eye, Package } from "@phosphor-icons/react";
-import { ShowcaseContext } from "@/context/Showcase";
+import { useShowcase } from "@/context/Showcase";
 
 interface WebProjectBase {
     data: ProjectSite;
@@ -16,8 +14,8 @@ interface WebProjectBase {
 }
 
 export default function WebProject({ ...props }: WebProjectBase) {
-    const { shown, setShown } = useContext(StaggerContext);
-    const { setProject } = useContext(ShowcaseContext);
+    const { shown, setShown } = useStagger();
+    const { setProject } = useShowcase();
 
     return (
         <motion.article
@@ -41,21 +39,21 @@ export default function WebProject({ ...props }: WebProjectBase) {
             {props.data.archived && (
                 <div className="status">
                     <p>Archived</p>
-                    <Package weight="fill" />
+                    <PackageIcon weight="fill" />
                 </div>
             )}
             {props.data.building && (
                 <div className="status">
                     <p>Building</p>
-                    <TrafficCone weight="fill" />
+                    <TrafficConeIcon weight="fill" />
                 </div>
             )}
             <div className="information">
                 <h3>{props.data.name}</h3>
                 <div className="actions">
-                    <Button type="action" colour="primary" icon={<Eye />} onClick={() => setProject(props.data)} />
+                    <Button type="action" colour="primary" icon={<EyeIcon />} onClick={() => setProject(props.data)} />
                     {props.data.url && (
-                        <Button type="anchor" colour="primary" icon={<ArrowSquareOut />} href={props.data.url} />
+                        <Button type="anchor" colour="primary" icon={<ArrowSquareOutIcon />} href={props.data.url} />
                     )}
                 </div>
             </div>

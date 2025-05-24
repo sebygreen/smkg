@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { clsx } from "clsx";
 import Loader from "@/components/Loader";
 import Image from "next/image";
-import { MouseScroll } from "@phosphor-icons/react/dist/ssr";
+import { MouseScrollIcon } from "@phosphor-icons/react/dist/ssr";
 
 interface SlideBase {
     src: string;
@@ -26,7 +26,7 @@ export default function Slide({ ...props }: SlideBase) {
         <div className={clsx("slide", loaded && "loaded")}>
             {scrollable && (
                 <div className="scrollable">
-                    <MouseScroll />
+                    <MouseScrollIcon />
                 </div>
             )}
             {!loaded && <Loader />}

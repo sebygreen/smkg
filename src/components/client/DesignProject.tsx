@@ -1,12 +1,11 @@
 "use client";
 
-import { useContext } from "react";
-import { ShowcaseContext } from "@/context/Showcase";
+import { useShowcase } from "@/context/Showcase";
 import { ProjectBranding, ProjectIcon, ProjectInterface } from "@/utilities/types";
 import Thumbnail from "@/components/client/Thumbnail";
-import { StaggerContext } from "@/context/Stagger";
-import { motion } from "framer-motion";
-import { Download } from "@phosphor-icons/react/dist/ssr";
+import { useStagger } from "@/context/Stagger";
+import { motion } from "motion/react";
+import { DownloadIcon } from "@phosphor-icons/react/dist/ssr";
 
 interface DesignProjectBase {
     data: ProjectIcon | ProjectInterface | ProjectBranding;
@@ -14,8 +13,9 @@ interface DesignProjectBase {
 }
 
 export default function DesignProject({ ...props }: DesignProjectBase) {
-    const { setProject } = useContext(ShowcaseContext);
-    const { shown, setShown } = useContext(StaggerContext);
+    const { setProject } = useShowcase();
+    const { shown, setShown } = useStagger();
+
     const motions = {
         project: {
             hidden: {
@@ -57,7 +57,7 @@ export default function DesignProject({ ...props }: DesignProjectBase) {
             />
             {"installs" in props.data && (
                 <div className="installs">
-                    <Download />
+                    <DownloadIcon />
                     <p>{props.data.installs}</p>
                 </div>
             )}
