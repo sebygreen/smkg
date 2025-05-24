@@ -11,7 +11,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "pocketbase.smkg.me",
+                hostname: "office.smkg.me",
                 pathname: "/api/files/**",
             },
             {
