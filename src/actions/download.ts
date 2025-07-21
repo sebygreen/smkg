@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function download(id: string) {
     if (!id || id == "") {
-        console.error("Missing required parameter id");
+        console.error("Missing required parameter 'id'.");
         return { ok: false };
     }
     try {

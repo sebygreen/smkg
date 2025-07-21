@@ -15,7 +15,7 @@ export interface ProjectSite extends ProjectBase {
     type: "site";
     archived: boolean;
     building: boolean;
-    industry: "Music Festival" | "Finance" | "Videography" | "Social Networking" | "Education";
+    industry: string;
     preview: ImageSchema;
     images: ImageSchema[];
     url?: string;

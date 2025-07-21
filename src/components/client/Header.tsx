@@ -29,7 +29,6 @@ export default function Header() {
         };
         const forward = target > page;
         const delta = forward ? middle.target - middle.current : middle.current - middle.target;
-        console.log(forward, delta);
         animate(
             ".worm",
             {
