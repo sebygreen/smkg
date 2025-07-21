@@ -6,6 +6,8 @@ import StaggerProvider from "@/context/Stagger";
 import { ShowcaseModal } from "@/components/client/modal/Showcase";
 import { Metadata } from "next";
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: "Design",
 };

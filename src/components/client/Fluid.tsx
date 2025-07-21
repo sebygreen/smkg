@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { Mesh, ShaderMaterial } from "three";
 import { useMemo, useRef } from "react";
 import { motion } from "motion/react";
-import { usePathname } from "next/navigation";
+import Blur from "@/components/client/Blur";
 
 function Plane() {
     const mesh = useRef<Mesh>(null!);
@@ -46,11 +46,6 @@ function Plane() {
             />
         </mesh>
     );
-}
-
-function Blur() {
-    const pathname = usePathname();
-    return pathname !== "/" && <div className="blur" />;
 }
 
 export default function Fluid() {

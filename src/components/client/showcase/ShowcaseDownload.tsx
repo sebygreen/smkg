@@ -8,13 +8,14 @@ import Loader from "@/components/Loader";
 import { motion } from "motion/react";
 import { download } from "@/actions/download";
 import { useShowcase } from "@/context/Showcase";
+import { Variants } from "motion";
 
 interface ShowcaseDownloadBase {
     id: string;
     name: string;
 }
 
-const motions = {
+const motions: { [key: string]: Variants } = {
     section: {
         hidden: {
             opacity: 0,
@@ -45,7 +46,7 @@ export default function ShowcaseDownload({ ...props }: ShowcaseDownloadBase) {
             const res = await download(props.id);
             if (!res.ok) return;
             if (res.ok && res.blob) downloadFile(res.blob, `${props.name}.icns`);
-            if (project && "installs" in project) setProject({...project, installs: project.installs + 1})
+            if (project && "installs" in project) setProject({ ...project, installs: project.installs + 1 });
         });
     };
 

@@ -15,7 +15,7 @@ export const StaggerContext = createContext<ContextParams>({
 export function useStagger() {
     const value = useContext(StaggerContext);
     if (process.env.NODE_ENV !== "production") {
-        if (!value) throw new Error("useToast must be wrapped in a <StaggerProvider />");
+        if (!value) throw new Error("useStagger must be wrapped in a <StaggerProvider />");
     }
     return value;
 }

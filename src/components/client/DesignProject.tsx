@@ -6,6 +6,7 @@ import Thumbnail from "@/components/client/Thumbnail";
 import { useStagger } from "@/context/Stagger";
 import { motion } from "motion/react";
 import { DownloadIcon } from "@phosphor-icons/react/dist/ssr";
+import { Variants } from "motion";
 
 interface DesignProjectBase {
     data: ProjectIcon | ProjectInterface | ProjectBranding;
@@ -16,7 +17,7 @@ export default function DesignProject({ ...props }: DesignProjectBase) {
     const { setProject } = useShowcase();
     const { shown, setShown } = useStagger();
 
-    const motions = {
+    const motions: { [key: string]: Variants } = {
         project: {
             hidden: {
                 scale: 0.9,

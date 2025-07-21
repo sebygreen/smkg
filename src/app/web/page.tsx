@@ -7,6 +7,8 @@ import ShowcaseProvider from "@/context/Showcase";
 import { ShowcaseModal } from "@/components/client/modal/Showcase";
 import { Metadata } from "next";
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: "Web Development",
 };

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useShowcase } from "@/context/Showcase";
-import { AnimatePresence, motion, useAnimate } from "motion/react";
+import { AnimatePresence, motion, stagger, useAnimate } from "motion/react";
 import {
     ArrowLeftIcon,
     ArrowRightIcon,
@@ -14,8 +14,9 @@ import {
 import Button from "@/components/client/Button";
 import ShowcaseDownload from "@/components/client/showcase/ShowcaseDownload";
 import Slide from "@/components/client/showcase/ShowcaseSlide";
+import { Variants } from "motion";
 
-const motions = {
+const motions: { [key: string]: Variants } = {
     modal: {
         hidden: {
             opacity: 0,
@@ -31,7 +32,7 @@ const motions = {
                 duration: 0.3,
                 ease: "easeOut",
                 when: "beforeChildren",
-                staggerChildren: 0.1,
+                delayChildren: stagger(0.1),
             },
         },
     },

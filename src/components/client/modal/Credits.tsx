@@ -1,11 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, stagger } from "motion/react";
 import { useCredits } from "@/context/Credits";
 import { GithubLogoIcon, HeartIcon, XIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/client/Button";
+import { Variants } from "motion";
 
-const motions = {
+const motions: { [key: string]: Variants } = {
     modal: {
         hidden: {
             opacity: 0,
@@ -21,7 +22,7 @@ const motions = {
                 duration: 0.3,
                 ease: "easeOut",
                 when: "beforeChildren",
-                staggerChildren: 0.1,
+                delayChildren: stagger(0.1),
             },
         },
     },
@@ -126,7 +127,7 @@ export function CreditsModal() {
                             text="Source"
                             href="https://github.com/sebygreen/smkg"
                         />
-                        <p className="copyright">&copy; 2025 smkg</p>
+                        <p className="copyright">&copy; 2025 smkg, ver. 1.0.1</p>
                     </motion.div>
                     <motion.span variants={motions.close}>
                         <Button type="action" colour="primary" icon={<XIcon />} onClick={toggle} />

@@ -10,8 +10,8 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                protocol: "https",
-                hostname: "office.smkg.me",
+                protocol: "http",
+                hostname: "api.smkg.me",
                 pathname: "/api/files/**",
             },
             {
@@ -19,7 +19,7 @@ const nextConfig = {
                 hostname: "localhost",
                 port: "8090",
                 pathname: "/api/files/**",
-            }
+            },
         ],
     },
 };
