@@ -20,13 +20,6 @@ export default function Page() {
                             <Button
                                 type="anchor"
                                 colour="primary"
-                                icon={<LinkedinLogoIcon weight="fill" />}
-                                text="LinkedIn"
-                                href="https://linkedin.com/in/sebastien-green-22a19928a/"
-                            />
-                            <Button
-                                type="anchor"
-                                colour="primary"
                                 text="Experience"
                                 icon={<FilePdfIcon weight="fill" />}
                                 href="/CV.pdf"

@@ -16,18 +16,20 @@ export const metadata: Metadata = {
     applicationName: "smkg.me",
     authors: [{ name: "Sebastien Green", url: "https://smkg.me" }],
     referrer: "origin-when-cross-origin",
+    icons: {
+        icon: "/favicon.svg",
+    },
     formatDetection: {
         email: false,
         address: false,
         telephone: false,
     },
+    appleWebApp: {
+        title: "smkg.me",
+    },
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
     return (
         <html lang="en">
             <body className={Satoshi.className}>
