@@ -127,7 +127,7 @@ export function CreditsModal() {
                             text="Source"
                             href="https://github.com/sebygreen/smkg"
                         />
-                        <p className="copyright">&copy; 2025 smkg, ver. 1.0.3</p>
+                        <p className="copyright">&copy; 2025 smkg, ver. 1.0.4</p>
                     </motion.div>
                     <motion.span variants={motions.close}>
                         <Button type="action" colour="primary" icon={<XIcon />} onClick={toggle} />

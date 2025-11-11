@@ -1,7 +1,7 @@
 import { CreditsModal, CreditsToggle } from "@/components/client/modal/Credits";
 import CreditsProvider from "@/context/Credits";
 import HomeLogo from "@/components/client/HomeLogo";
-import { FilePdfIcon, LinkedinLogoIcon } from "@phosphor-icons/react/dist/ssr";
+import { FilePdfIcon } from "@phosphor-icons/react/dist/ssr";
 import Button from "@/components/client/Button";
 
 export default function Page() {
