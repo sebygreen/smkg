@@ -1,10 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
-import Script from "next/script";
 import { Satoshi } from "@/utilities/fonts";
 import Fluid from "@/components/client/Fluid";
 import Header from "@/components/client/Header";
+import PlausibleProvider from "next-plausible";
 
 export const metadata: Metadata = {
     title: {
@@ -33,11 +33,17 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     return (
         <html lang="en">
             <body className={Satoshi.className}>
-                <Header />
-                <Fluid />
-                {children}
+                <PlausibleProvider
+                    domain="smkg.me"
+                    customDomain="https://plausible.smkg.me"
+                    selfHosted
+                    trackOutboundLinks
+                >
+                    <Header />
+                    <Fluid />
+                    {children}
+                </PlausibleProvider>
             </body>
-            <Script defer data-domain="smkg.me" src={"https://plausible.smkg.me/js/script.js"} />
         </html>
     );
 }
