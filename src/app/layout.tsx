@@ -8,13 +8,12 @@ import PlausibleProvider from "next-plausible";
 
 export const metadata: Metadata = {
     title: {
-        template: "Sebastien Green • %s",
-        default: "Sebastien Green",
+        template: "smkg • %s",
+        default: "smkg",
     },
     description: "Web developer & designer.",
     generator: "Next.js",
     applicationName: "smkg.me",
-    authors: [{ name: "Sebastien Green", url: "https://smkg.me" }],
     referrer: "origin-when-cross-origin",
     icons: {
         icon: "/favicon.svg",
