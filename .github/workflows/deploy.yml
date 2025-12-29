@@ -1,0 +1,30 @@
+name: Deployment Workflow
+on:
+    push:
+        branches: [ main ]
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v4
+
+            -   name: SSH to VPS, for production
+                uses: appleboy/ssh-action@v1
+                with:
+                    host: ${{ secrets.SSH_HOST }}
+                    username: ${{ secrets.SSH_USERNAME }}
+                    key: ${{ secrets.SSH_PRIVATE_KEY }}
+                    script: |
+                        export NVM_DIR=~/.nvm
+                        source ~/.nvm/nvm.sh
+                        eval "$(ssh-agent -s)"
+                        ssh-add .ssh/github_ed25519
+                        cd smkg
+                        git restore .
+                        rm -rf .next node_modules
+                        git pull
+                        npm ci
+                        npm run build
+                        pm2 restart nextjs-smkg --update-env
