@@ -1,6 +1,6 @@
 {
   "name": "smkg",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,9 +11,9 @@
   "dependencies": {
     "@icons-pack/react-simple-icons": "^13.8.0",
     "@phosphor-icons/react": "^2.1.10",
-    "@react-three/fiber": "^9.4.2",
+    "@react-three/fiber": "^9.5.0",
     "clsx": "^2.1.1",
-    "motion": "^12.23.26",
+    "motion": "^12.26.2",
     "next": "^16.1.1",
     "next-plausible": "^3.12.5",
     "pocketbase": "^0.26.5",
