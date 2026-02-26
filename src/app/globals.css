@@ -771,6 +771,7 @@ main#design #projects .icons {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
+    corner-shape: squircle;
 }
 
 #projects .project.site .image img {

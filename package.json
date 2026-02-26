@@ -1,6 +1,6 @@
 {
   "name": "smkg",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,27 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@icons-pack/react-simple-icons": "^13.8.0",
+    "@icons-pack/react-simple-icons": "^13.11.2",
     "@phosphor-icons/react": "^2.1.10",
     "@react-three/fiber": "^9.5.0",
     "clsx": "^2.1.1",
-    "motion": "^12.26.2",
-    "next": "^16.1.1",
+    "motion": "^12.34.3",
+    "next": "^16.1.6",
     "next-plausible": "^3.12.5",
-    "pocketbase": "^0.26.5",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "three": "^0.182.0",
+    "pocketbase": "^0.26.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "three": "^0.183.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.182.0",
+    "@types/three": "^0.183.1",
+    "baseline-browser-mapping": "^2.10.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.1",
-    "prettier": "^3.7.4",
+    "eslint-config-next": "16.1.6",
+    "prettier": "^3.8.1",
     "raw-loader": "^4.0.2",
     "typescript": "^5"
   }

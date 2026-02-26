@@ -13,9 +13,6 @@ export default function Page() {
                     <HomeLogo />
                     <div className="heading">
                         <h1>Web Developer & Designer</h1>
-                        <p>
-                            Also known as <span>ottomon</span> and <span>sebygreen</span>.
-                        </p>
                         <div className="links">
                             <Button
                                 type="anchor"
